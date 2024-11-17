@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Механические часы</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+      margin: 0;
+    }
+
+    .clock {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      background-color: gold;
+      border-radius: 50%;
+      border: 5px solid #333;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .clock::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 15px;
+      height: 15px;
+      background-color: #333;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .second-hand {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 120px;
+      background-color: red;
+      transform-origin: 50% 100%;
+      animation: rotate-seconds 60s infinite linear;
+      transform: translateX(-50%) translateY(-100%);
+    }
+
+    .minute-hand {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 4px;
+      height: 100px;
+      background-color: #555;
+      transform-origin: 50% 100%;
+      animation: rotate-minutes 3600s infinite linear;
+      transform: translateX(-50%) translateY(-100%);
+    }
+
+    .hour-hand {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 6px;
+      height: 80px;
+      background-color: #333;
+      transform-origin: 50% 100%;
+      animation: rotate-hours 43200s infinite linear;
+      transform: translateX(-50%) translateY(-100%);
+    }
+
+    @keyframes rotate-seconds {
+      from {
+        transform: translateX(-50%) translateY(-100%) rotate(0deg);
+      }
+      to {
+        transform: translateX(-50%) translateY(-100%) rotate(360deg);
+      }
+    }
+
+    @keyframes rotate-minutes {
+      from {
+        transform: translateX(-50%) translateY(-100%) rotate(0deg);
+      }
+      to {
+        transform: translateX(-50%) translateY(-100%) rotate(360deg);
+      }
+    }
+
+    @keyframes rotate-hours {
+      from {
+        transform: translateX(-50%) translateY(-100%) rotate(0deg);
+      }
+      to {
+        transform: translateX(-50%) translateY(-100%) rotate(360deg);
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="clock">
+    <div class="hour-hand"></div>
+    <div class="minute-hand"></div>
+    <div class="second-hand"></div>
+  </div>
+</body>
+</html>
