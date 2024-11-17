@@ -1,0 +1,35 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    gap: 20px; /* Расстояние между цифрами */
+}
+
+.digit {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Расстояние между строками */
+}
+
+.row {
+    display: flex;
+    gap: 5px; /* Расстояние между квадратами */
+}
+
+.block {
+    width: 30px;
+    height: 30px;
+    background-color: #007bff; /* Синий цвет */
+}
+
+.blockEmpty {
+    width: 30px;
+    height: 30px;
+}
