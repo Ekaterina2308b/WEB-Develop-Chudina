@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сумма элементов до последнего отрицательного косинуса (не включая его)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<div>
+        <h1>Введите количество грибов</h1>
+        <input type="number" id="arrayInput1" placeholder="Количество грибов">
+        <button onclick="showMushroomText()">Показать</button>
+        <p id="result1"></p>
+    </div>
+
+    <div>
+        <h1>Введите элементы массива (через запятую)</h1>
+        <input type="text" id="arrayInput2" placeholder="0, Math.PI/4, Math.PI, ...">
+        <button onclick="calculateSum()">Посчитать сумму</button>
+        <p id="result2"></p>
+    </div>
+	
+	<div>
+        <h1>Введите элементы массива (через запятую)</h1>
+        <input type="text" id="arrayInput3">
+        <button onclick="filterArray()">Рассчитать</button>
+        <p id="result3"></p>
+    </div>
+	
+	<div>
+        <h1>Проверка на палиндром</h1>
+        <input type="text" id="arrayInput4" placeholder="Введите слово или фразу">
+        <button onclick="checkPalindrome()">Проверить</button>
+        <p id="result4"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
