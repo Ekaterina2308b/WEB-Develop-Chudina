@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация авто для продажи</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="main-container">
+    <div class="form-container">
+        <form id="car-registration-form" class="car-registration-form">
+            <h1>Регистрация автомобиля</h1>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="owner-name">Имя владельца:</label>
+                    <input type="text" id="owner-name" name="owner-name" placeholder="Введите имя владельца" required>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <label for="owner-phone">Телефон владельца:</label>
+                    <input type="tel" id="owner-phone" class="tel" name="owner-phone" placeholder="+7 (___) ___-__-__" required>
+                    <span class="error-message"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="car-make">Марка автомобиля:</label>
+                    <input type="text" id="car-make" name="car-make" placeholder="Введите марку авто" required>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <label for="car-model">Модель автомобиля:</label>
+                    <input type="text" id="car-model" name="car-model" placeholder="Введите модель авто" required>
+                    <span class="error-message"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="reg-date">Дата регистрации:</label>
+                    <input type="text" id="reg-date" class="date" name="reg-date" placeholder="ДД.ММ.ГГГГ" required>
+                    <span class="error-message"></span>
+                </div>
+                <div class="form-group">
+                    <label for="car-mileage">Пробег (км):</label>
+                    <input type="number" id="car-mileage" name="car-mileage" min="0" required>
+                    <span class="error-message"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="car-price">Стоимость автомобиля:</label>
+                    <input type="text" id="car-price" name="car-price" placeholder="Введите стоимость" required>
+                    <span class="error-message"></span>
+                </div>
+            </div>
+            <button type="submit" class="submit-button">Отправить</button>
+        </form>
+    </div>
+
+    <div class="form-preview form-container">
+        <h2>Предварительный просмотр:</h2>
+        <div class="preview-row">
+            <p><strong>Имя владельца:</strong> <span id="preview-owner-name">—</span></p>
+        </div>
+        <div class="preview-row">
+            <p><strong>Телефон владельца:</strong> <span id="preview-owner-phone">—</span></p>
+        </div>
+        <div class="preview-row">
+            <p><strong>Марка автомобиля:</strong> <span id="preview-car-make">—</span></p>
+        </div>
+        <div class="preview-row">
+            <p><strong>Модель автомобиля:</strong> <span id="preview-car-model">—</span></p>
+        </div>
+        <div class="preview-row">
+            <p><strong>Дата регистрации:</strong> <span id="preview-reg-date">—</span></p>
+        </div>
+        <div class="preview-row">
+            <p><strong>Пробег (км):</strong> <span id="preview-car-mileage">—</span></p>
+        </div>
+        <div class="preview-row">
+            <p><strong>Стоимость автомобиля:</strong> <span id="preview-car-price">—</span></p>
+        </div>
+    </div>
+</div>
+
+<script src="scripts/scripts.js"></script>
+
+</body>
+</html>
