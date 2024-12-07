@@ -1,0 +1,20 @@
+CREATE DATABASE user_management;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(50) NOT NULL,
+    role ENUM('admin', 'user') DEFAULT 'user'
+);
+
+CREATE TABLE services (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE users_services (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    users_id INT NOT NULL,
+    services_id INT NOT NULL,
+    UNIQUE(users_id,services_id)
+);
