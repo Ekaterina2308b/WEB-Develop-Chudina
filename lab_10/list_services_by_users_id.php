@@ -18,12 +18,33 @@ $stmt->execute(['id' => $id]);
 $services = $stmt->fetchAll();
 ?>
 
-<h2>Управление услугами</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Музыкальный портал</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="layout">
+    <div class="menu">
+        <h1>Добавление услуги</h1>
+        <?php if (isAdmin()): ?>
+            <a href="admin.php">Панель администратора</a>
+        <?php else: ?>
+            <a href="profile.php">Панель пользователя</a>
+        <?php endif; ?>
+        <div class="logout">
+            <a href="logout.php">Выйти из аккаунта</a>
+        </div>
+    </div>
 
 <table>
     <thead>
         <tr>
             <th>Название услуги</th>
+            <th>Действие</th>
         </tr>
     </thead>
     <tbody>
@@ -37,7 +58,6 @@ $services = $stmt->fetchAll();
         <?php endforeach; ?>
     </tbody>
 </table>
-
-<a href="add_services_by_users_id.php?id=<?php echo $id; ?>">Добавить услугу</a> |
-<a href="admin.php">Выйти</a>
-
+</div>
+</body>
+</html>

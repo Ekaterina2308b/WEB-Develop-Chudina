@@ -14,9 +14,30 @@ $stmt->execute();
 $users = $stmt->fetchAll();
 ?>
 
-<h2>Управление пользователями</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Музыкальный портал</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<div class="layout">
+    <div class="menu">
+            <h1>Управление пользователями</h1>
+            <a href="index.php">Главная страница</a>
+            <a href="vk.php">Моя музыка</a>
+            <a href="yandex.php">Рекомендации музыки в Yandex</a>
+            <a href="vk.php">Рекомендации музыки в VK</a>
+            <a href="album.php">Альбомы</a>
+            <a href="add_services.php">Добавить услугу</a>
+            <div class="logout">
+                <a href="logout.php">Выйти из аккаунта</a>
+            </div>
+    </div>
 
-<table>
+<table class ="table">
     <thead>
         <tr>
             <th>Email</th>
@@ -31,7 +52,7 @@ $users = $stmt->fetchAll();
                 <td><?php echo htmlspecialchars($user['role']); ?></td>
                 <td>
                     <a href="edit_profile.php?id=<?php echo $user['id']; ?>">Редактировать</a> |
-                    <a href="delete_user.php?id=<?php echo $user['id']; ?>" onclick="return confirm('Вы уверены?')">Удалить</a>
+                    <a href="delete_user.php?id=<?php echo $user['id']; ?>" onclick="return confirm('Вы уверены?')">Удалить</a> |
                     <a href="list_services_by_users_id.php?id=<?php echo $user['id']; ?>">Список услуг</a>
                 </td>
             </tr>
@@ -39,7 +60,8 @@ $users = $stmt->fetchAll();
     </tbody>
 </table>
 
-<a href="add_user.php">Добавить пользователя</a>
-<a href="add_services.php">Добавить услугу</a>
-<a href="logout.php">Выйти</a>
+</div>
+</body>
+</html>
+
 

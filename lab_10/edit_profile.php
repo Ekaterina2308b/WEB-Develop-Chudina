@@ -28,13 +28,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: profile.php');
     exit();
 }
+
 ?>
 
-<h2>Редактировать профиль</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Музыкальный портал</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="layout">
+    <div class="menu">
+        <h1>Редактирование пользователя</h1>
+        <?php if (isAdmin()): ?>
+            <a href="admin.php">Панель администратора</a>
+        <?php else: ?>
+            <a href="profile.php">Панель пользователя</a>
+        <?php endif; ?>
+        <div class="logout">
+            <a href="logout.php">Выйти из аккаунта</a>
+        </div>
+    </div>
 
-<form action="admin.php" method="post">
+<form class="menu_user" action="admin.php" method="post">
     <label for="email">Email:</label>
     <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($user['email']); ?>" required><br>
 
     <button type="submit">Сохранить</button>
 </form>
+
+</div>
+</body>
+</html>
+
