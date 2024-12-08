@@ -27,10 +27,6 @@ $users = $stmt->fetchAll();
     <div class="menu">
             <h1>Управление пользователями</h1>
             <a href="index.php">Главная страница</a>
-            <a href="vk.php">Моя музыка</a>
-            <a href="yandex.php">Рекомендации музыки в Yandex</a>
-            <a href="vk.php">Рекомендации музыки в VK</a>
-            <a href="album.php">Альбомы</a>
             <a href="add_services.php">Добавить услугу</a>
             <div class="logout">
                 <a href="logout.php">Выйти из аккаунта</a>

@@ -28,10 +28,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<h2>Добавить услугу</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Музыкальный портал</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
 
+<div class="layout">
+    <div class="menu">
+        <h1>Добавление услуги</h1>
+        <?php if (isAdmin()): ?>
+            <a href="admin.php">Панель администратора</a>
+        <?php else: ?>
+            <a href="profile.php">Панель пользователя</a>
+        <?php endif; ?>
+        <div class="logout">
+            <a href="logout.php">Выйти из аккаунта</a>
+        </div>
+    </div>
 <form action="add_services_by_users_id.php?id=<?php echo htmlspecialchars($id); ?>" method="post">
-    <label for="services_id">Выберите услугу:</label>
+    <h1 for="services_id">Выберите услугу:</h1>
     <select name="services_id" id="services_id">
         <?php foreach ($services as $service): ?>
             <option value="<?php echo $service['id']; ?>"><?php echo htmlspecialchars($service['name']); ?></option>
@@ -40,3 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <button type="submit">Добавить</button>
 </form>
+
+</div>
+</body>
+</html>

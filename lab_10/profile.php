@@ -26,10 +26,39 @@ if (!$user) {
 }
 ?>
 
-<h2>Профиль пользователя</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Музыкальный портал</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="layout">
+    <div class="menu">
+        <h1>Профиль пользователя</h1>
+        <a href="index.php">Главная страница</a>
+        <a href="edit_profile.php">Редактировать профиль</a>
+        <div class="logout">
+            <a href="logout.php">Выйти из аккаунта</a>
+        </div>
+    </div>
 
-<p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
-<p>Роль: <?php echo htmlspecialchars($user['role']); ?></p>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Роль</th>
+        </tr>
+    </thead>
+    <tbody>
+        <td><?php echo htmlspecialchars($user['email']); ?></td>
+        <td><?php echo htmlspecialchars($user['role']); ?></td>
+    </tbody>
+</table>
 
 <table>
     <thead>
@@ -46,5 +75,6 @@ if (!$user) {
     </tbody>
 </table>
 
-<a href="edit_profile.php">Редактировать профиль</a>
-<a href="logout.php">Выйти</a>
+</div>      
+</body>
+</html>

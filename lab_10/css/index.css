@@ -77,7 +77,7 @@ h1 {
 
 .card {
   border-radius: 20px;
-  height: 200px;
+  height: 350px;
   width: 450px;
   background-size: cover;
   background-position: center;
@@ -139,4 +139,12 @@ h1 {
 .menu_user label {
   color: white;
   border: 1px solid #f9a826;
+}
+
+.card h3 {
+  color: rgb(255, 153, 0);
+}
+
+.layout h1 {
+  color: white;
 }

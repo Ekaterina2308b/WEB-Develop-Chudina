@@ -45,28 +45,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/register.css">
     <title>Регистрация</title>
 </head>
 <body>
-    <h2>Регистрация</h2>
-
     <?php if (isset($error)): ?>
         <p style="color:red;"><?php echo $error; ?></p>
     <?php endif; ?>
 
+    <div class="container">
     <form action="register.php" method="post">
-        <label for="email">Email:</label>
+        <h1>Регистрация</h1>
+        <h1>Email:</h1>
         <input type="email" name="email" id="email" required><br>
 
-        <label for="password">Пароль:</label>
+        <h1>Пароль:</h1>
         <input type="password" name="password" id="password" required><br>
 
-        <label for="confirm_password">Подтверждение пароля:</label>
+        <h1>Подтверждение пароля:</h1>
         <input type="password" name="confirm_password" id="confirm_password" required><br>
 
         <button type="submit">Зарегистрироваться</button>
     </form>
-
     <p>Уже есть аккаунт? <a href="login.php">Войти</a></p>
+    </div>
 </body>
 </html>

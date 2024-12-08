@@ -29,7 +29,8 @@ $services = $stmt->fetchAll();
 <body>
 <div class="layout">
     <div class="menu">
-        <h1>Добавление услуги</h1>
+        <h1>Добавление услуги у пользователя</h1>
+        <a href="add_services_by_users_id.php?id=<?php echo $id; ?>">Добавить услугу</a>
         <?php if (isAdmin()): ?>
             <a href="admin.php">Панель администратора</a>
         <?php else: ?>

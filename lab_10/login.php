@@ -32,37 +32,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css">
     <title>Вход</title>
 </head>
 <body>
-    <h2>Вход в систему</h2>
 
     <?php if (isset($error)): ?>
         <p style="color:red;"><?php echo $error; ?></p>
     <?php endif; ?>
 
+    <div class="container">
+    <h1>Окно авторизации</h1>
     <form action="login.php" method="post">
-        <label for="email">Email:</label>
+        <h1>Email:</h1>
         <input type="email" name="email" id="email" required><br>
-        <label for="password">Пароль:</label>
+        <h1>Пароль:</h1>
         <input type="password" name="password" id="password" required><br>
         <button type="submit">Войти</button>
     </form>
     <p>Нет аккаунта? <a href="register.php">Зарегистрироваться</a></p>
-
-    <table>
-    <thead>
-        <tr>
-            <th>Услуги</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($services as $service): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($service['name']); ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-    </table>
+    </div>
 </body>
 </html>
+
+<!-- <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+<div class="container">
+    <h2>Вход</h2>
+    <form method="post">
+        <input type="text" name="username" placeholder="Имя" required>
+        <input type="password" name="password" placeholder="Пароль" required>
+        <button type="submit">Войти</button>
+        <a href="register.php" class="btn-primary banner__link">Регистрация</a>
+    </form>
+</div>
+</body>
+</html> -->

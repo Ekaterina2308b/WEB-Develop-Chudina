@@ -22,9 +22,8 @@ if (!isLoggedIn()) {
 <div class="layout">
     <div class="menu">
         <h1>Главная страница</h1>
-        <a href="vk.php">Моя музыка</a>
-        <a href="yandex.php">Рекомендации музыки в Yandex</a>
-        <a href="vk.php">Рекомендации музыки в VK</a>
+        <a href="artist.php">Артисты</a>
+        <a href="clips.php">Популярные клипы</a>
         <a href="album.php">Альбомы</a>
         <?php if (isAdmin()): ?>
             <a href="admin.php">Панель администратора</a>

@@ -23,8 +23,8 @@ if (!isLoggedIn()) {
     <div class="menu">
         <h1>Альбомы</h1>
         <a href="index.php">Главная страница</a>
-        <a href="yandex.php">Рекомендации музыки в Yandex</a>
-        <a href="vk.php">Рекомендации музыки в VK</a>
+        <a href="artist.php">Артисты</a>
+        <a href="clips.php">Популярные клипы</a>
         <?php if (isAdmin()): ?>
             <a href="admin.php" class="admin-btn">Панель администратора</a>
         <?php else: ?>
@@ -37,70 +37,57 @@ if (!isLoggedIn()) {
 
     <div class="cards-block">
         <div class="cards-container">
-            <div class="card" style="background-image: url('img/tdd.jpg');">
+            <div class="card" style="background-image: url('img/bandana.jpg');" onclick="location.href='https://genius.com/Big-baby-tape-and-kizaru-bandana-lyrics';" >
+                <div class="card-body"></div>
+            </div>
+            <div class="card" style="background-image: url('img/egoralbum.jpg');" onclick="location.href='https://genius.com/albums/Egor-kreed/3';">
                 <div class="card-body">
-                    <h3>Три Дня Дождя</h3>
                 </div>
             </div>
-            <div class="card" style="background-image: url('img/klava.jpg');">
+            <div class="card" style="background-image: url('img/weliveonly.jpg');" onclick="location.href='https://genius.com/albums/Aarne-and-bushido-zho/We-live-only-once';">
                 <div class="card-body">
-                    <h3>Клава Кока</h3>
                 </div>
             </div>
-            <div class="card" style="background-image: url('img/egorkreed.jpg');">
+            <div class="card" style="background-image: url('img/peekaboo.jpg');" onclick="location.href='https://genius.com/albums/Big-baby-tape-and-aarne/Peekaboo';">
                 <div class="card-body">
-                    <h3>Егор Крид</h3>
-                </div>
-            </div>
-            <div class="card" style="background-image: url('img/annaasti.jpg');">
-                <div class="card-body">
-                    <h3>Анна Асти</h3>
                 </div>
             </div>
         </div>
 
         <div class="cards-container">
-            <div class="card" style="background-image: url('img/tdd.jpg');">
+            <div class="card" style="background-image: url('img/mona.jpg');" onclick="location.href='https://genius.com/albums/Mona/Deluxe-edition';">
                 <div class="card-body">
-                    <h3>Три Дня Дождя</h3>
                 </div>
             </div>
-            <div class="card" style="background-image: url('img/klava.jpg');">
+            <div class="card" style="background-image: url('img/annaalbum.jpg');" onclick="location.href='https://genius.com/albums/Anna-asti/Deluxe-tsarina';">
                 <div class="card-body">
-                    <h3>Клава Кока</h3>
                 </div>
             </div>
-            <div class="card" style="background-image: url('img/egorkreed.jpg');">
+            <div class="card" style="background-image: url('img/buster.jpg');" onclick="location.href='https://genius.com/albums/Miyagi/Buster-keaton';">
                 <div class="card-body">
-                    <h3>Егор Крид</h3>
                 </div>
             </div>
-            <div class="card" style="background-image: url('img/annaasti.jpg');">
+            <div class="card" style="background-image: url('img/shut.jpg');" onclick="location.href='https://genius.com/albums/Korol-i-shut/Acoustic-album';">
                 <div class="card-body">
-                    <h3>Анна Асти</h3>
                 </div>
             </div>
         </div>
 
         <div class="cards-container">
-            <div class="card" style="background-image: url('img/tdd.jpg');">
+            <div class="card" style="background-image: url('img/macan.jpg');" onclick="location.href='https://genius.com/albums/Korol-i-shut/Acoustic-album';">
                 <div class="card-body">
-                    <h3>Три Дня Дождя</h3>
                 </div>
             </div>
-            <div class="card" style="background-image: url('img/klava.jpg');">
+            <div class="card" style="background-image: url('img/korzh.jpg');" onclick="location.href='https://genius.com/albums/Korol-i-shut/Acoustic-album';">
                 <div class="card-body">
-                    <h3>Клава Кока</h3>
                 </div>
             </div>
-            <div class="card" style="background-image: url('img/egorkreed.jpg');">
+            <div class="card" style="background-image: url('img/melancholia.jpg');" onclick="location.href='https://genius.com/albums/Tdd/Melancholia';">
                 <div class="card-body">
-                    <h3>Егор Крид</h3>
                 </div>
             </div>
-            <div class="card" style="background-image: url('img/annaasti.jpg');">
+            <div class="card" style="background-image: url('img/mayot.jpg');" onclick="location.href='https://genius.com/albums/Mayot/Both';">
                 <div class="card-body">
-                    <h3>Анна Асти</h3>
                 </div>
             </div>
         </div>
