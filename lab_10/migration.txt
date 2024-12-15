@@ -18,3 +18,70 @@ CREATE TABLE users_services (
     services_id INT NOT NULL,
     UNIQUE(users_id,services_id)
 );
+
+CREATE TABLE albums (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    cover_url VARCHAR(255) NOT NULL,
+    genius_url VARCHAR(255) NOT NULL
+);
+
+INSERT INTO albums (title, cover_url, genius_url) VALUES 
+('Bandana', 'img/bandana.jpg', 'https://genius.com/Big-baby-tape-and-kizaru-bandana-lyrics'),
+('3', 'img/egoralbum.jpg', 'https://genius.com/albums/Egor-kreed/3'),
+('We Live Only Once', 'img/weliveonly.jpg', 'https://genius.com/albums/Aarne-and-bushido-zho/We-live-only-once'),
+('Peekaboo', 'img/peekaboo.jpg', 'https://genius.com/albums/Big-baby-tape-and-aarne/Peekaboo'),
+('Deluxe Edition', 'img/mona.jpg', 'https://genius.com/albums/Mona/Deluxe-edition'),
+('Deluxe Tsarina', 'img/annaalbum.jpg', 'https://genius.com/albums/Anna-asti/Deluxe-tsarina'),
+('Buster Keaton', 'img/buster.jpg', 'https://genius.com/albums/Miyagi/Buster-keaton'),
+('Acoustic Album', 'img/shut.jpg', 'https://genius.com/albums/Korol-i-shut/Acoustic-album'),
+('Macan Album', 'img/macan.jpg', 'https://genius.com/albums/Macan/Acoustic-album'),
+('Korzh Album', 'img/korzh.jpg', 'https://genius.com/albums/Korol-i-shut/Acoustic-album'),
+('Melancholia', 'img/melancholia.jpg', 'https://genius.com/albums/Tdd/Melancholia'),
+('Both', 'img/mayot.jpg', 'https://genius.com/albums/Mayot/Both');
+
+
+CREATE TABLE artists (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    bio TEXT,
+    image_url VARCHAR(255),
+    genius_url VARCHAR(255)
+);
+
+
+INSERT INTO artists (name, bio, image_url, genius_url) VALUES 
+('Три Дня Дождя', 'Описание Три Дня Дождя', 'https://images.genius.com/6a1be4cad9ae449d180faaf441db0643.614x614x1.jpg', 'https://genius.com/artists/Tdd'),
+('Клава Кока', 'Описание Клава Кока', 'https://images.genius.com/09be92b8cac43055bf20c3ac5c910d88.1000x1000x1.jpg', 'https://genius.com/artists/Klava-coca'),
+('Егор Крид', 'Описание Егор Крид', 'https://images.genius.com/20ca7e30cbeee62546bcdee319368f4d.800x800x1.jpg', 'https://genius.com/artists/Egor-kreed'),
+('Анна Асти', 'Описание Анна Асти', 'https://images.genius.com/b9d653e5c694c2f5d76fa6caf006f2a9.1000x1000x1.jpg', 'https://genius.com/artists/Anna-asti'),
+('Джиган', 'Описание Джиган', 'https://images.genius.com/dfe1652d83589d9d7b39b996c1dfc2ea.1000x1000x1.jpg', 'https://genius.com/artists/Geegun'),
+('Тимати', 'Описание Тимати', 'https://images.genius.com/9c0f540ae52f21de3dfaa40453dba836.750x750x1.jpg', 'https://genius.com/artists/Timati'),
+('Шаман', 'Описание Шаман', 'https://images.genius.com/d4907184d0bec2baf1009d0b615b313c.1000x1000x1.jpg', 'https://genius.com/artists/Shaman'),
+('Macan', 'Описание Macan', 'https://images.genius.com/988914a6e5bc0a28a9f814e97470e2a0.612x612x1.jpg', 'https://genius.com/artists/Macan');
+
+CREATE TABLE clips (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    video_url VARCHAR(255) NOT NULL,
+    description TEXT
+);
+
+INSERT INTO clips (title, video_url, description) VALUES 
+('Клип 1', 'UwxTUXB8peI', 'Описание клипа 1'),
+('Клип 2', 'ZOI8ib7k4Ic', 'Описание клипа 2'),
+('Клип 3', 'nidQCt_HEsY', 'Описание клипа 3'),
+('Клип 4', 'i9AHJkHqkpw', 'Описание клипа 4'),
+('Клип 5', 'Jg3gwyoUrhE', 'Описание клипа 5'),
+('Клип 6', 'Zki6xPc7hK0', 'Описание клипа 6'),
+('Клип 7', 'wOBnq0Ewz5k', 'Описание клипа 7'),
+('Клип 8', '0-7IHOXkiV8', 'Описание клипа 8'),
+('Клип 9', 'RgKAFK5djSk', 'Описание клипа 9'),
+('Клип 10', 'n70xejQ4tXs', 'Описание клипа 10');
+
+CREATE TABLE news (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    text TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);

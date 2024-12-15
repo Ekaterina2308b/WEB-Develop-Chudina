@@ -148,3 +148,61 @@ h1 {
 .layout h1 {
   color: white;
 }
+
+
+.menu form {
+  display: flex;
+  flex-direction: column;
+}
+
+.news-form textarea {
+  width: 98%;
+  border-radius: 5px;
+  border-color: orange;
+  resize: none;
+  margin-bottom: 10px;
+  background: #121212;
+  margin: 10px 10px;
+}
+
+.menu button {
+  align-self: flex-end;
+  background: #f9a826;
+  color: #1e1e1e;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.menu button:hover {
+  background: #e08e1c;
+}
+
+.news-section {
+  width: 99%;
+}
+
+.news-feed {
+  width: 99%;
+}
+
+.news-item {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  text-align: center;
+}
+
+.news-item p {
+  color: #fff;
+}
+
+.news-item small {
+  display: block;
+  margin-top: 10px;
+  color: #aaa;
+}
+

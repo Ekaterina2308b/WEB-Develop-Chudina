@@ -2,12 +2,27 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+require 'includes/db.php';
 require 'includes/auth.php';
 
 if (!isLoggedIn()) {
     header('Location: login.php');
     exit;
 }
+
+$items_per_page = 12;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $items_per_page;
+
+$stmt = $pdo->prepare("SELECT * FROM albums LIMIT :offset, :items_per_page");
+$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+$stmt->bindParam(':items_per_page', $items_per_page, PDO::PARAM_INT);
+$stmt->execute();
+$albums = $stmt->fetchAll();
+
+$stmt = $pdo->query("SELECT COUNT(*) FROM albums");
+$total_albums = $stmt->fetchColumn();
+$total_pages = ceil($total_albums / $items_per_page);
 ?>
 
 <!DOCTYPE html>
@@ -37,63 +52,22 @@ if (!isLoggedIn()) {
 
     <div class="cards-block">
         <div class="cards-container">
-            <div class="card" style="background-image: url('img/bandana.jpg');" onclick="location.href='https://genius.com/Big-baby-tape-and-kizaru-bandana-lyrics';" >
-                <div class="card-body"></div>
-            </div>
-            <div class="card" style="background-image: url('img/egoralbum.jpg');" onclick="location.href='https://genius.com/albums/Egor-kreed/3';">
-                <div class="card-body">
+            <?php foreach ($albums as $album): ?>
+                <div class="card" style="background-image: url('<?php echo htmlspecialchars($album['cover_url']); ?>');" onclick="location.href='<?php echo htmlspecialchars($album['genius_url']); ?>';">
+                    <div class="card-body"></div>
                 </div>
-            </div>
-            <div class="card" style="background-image: url('img/weliveonly.jpg');" onclick="location.href='https://genius.com/albums/Aarne-and-bushido-zho/We-live-only-once';">
-                <div class="card-body">
-                </div>
-            </div>
-            <div class="card" style="background-image: url('img/peekaboo.jpg');" onclick="location.href='https://genius.com/albums/Big-baby-tape-and-aarne/Peekaboo';">
-                <div class="card-body">
-                </div>
-            </div>
-        </div>
-
-        <div class="cards-container">
-            <div class="card" style="background-image: url('img/mona.jpg');" onclick="location.href='https://genius.com/albums/Mona/Deluxe-edition';">
-                <div class="card-body">
-                </div>
-            </div>
-            <div class="card" style="background-image: url('img/annaalbum.jpg');" onclick="location.href='https://genius.com/albums/Anna-asti/Deluxe-tsarina';">
-                <div class="card-body">
-                </div>
-            </div>
-            <div class="card" style="background-image: url('img/buster.jpg');" onclick="location.href='https://genius.com/albums/Miyagi/Buster-keaton';">
-                <div class="card-body">
-                </div>
-            </div>
-            <div class="card" style="background-image: url('img/shut.jpg');" onclick="location.href='https://genius.com/albums/Korol-i-shut/Acoustic-album';">
-                <div class="card-body">
-                </div>
-            </div>
-        </div>
-
-        <div class="cards-container">
-            <div class="card" style="background-image: url('img/macan.jpg');" onclick="location.href='https://genius.com/albums/Korol-i-shut/Acoustic-album';">
-                <div class="card-body">
-                </div>
-            </div>
-            <div class="card" style="background-image: url('img/korzh.jpg');" onclick="location.href='https://genius.com/albums/Korol-i-shut/Acoustic-album';">
-                <div class="card-body">
-                </div>
-            </div>
-            <div class="card" style="background-image: url('img/melancholia.jpg');" onclick="location.href='https://genius.com/albums/Tdd/Melancholia';">
-                <div class="card-body">
-                </div>
-            </div>
-            <div class="card" style="background-image: url('img/mayot.jpg');" onclick="location.href='https://genius.com/albums/Mayot/Both';">
-                <div class="card-body">
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 
-    
+    <div class="pagination">
+        <?php if ($page > 1): ?>
+            <a href="album.php?page=<?php echo $page - 1; ?>">&laquo; Предыдущая</a>
+        <?php endif; ?>
+        <?php if ($page < $total_pages): ?>
+            <a href="album.php?page=<?php echo $page + 1; ?>">Следующая &raquo;</a>
+        <?php endif; ?>
+    </div>
 </div>
 </body>
 </html>

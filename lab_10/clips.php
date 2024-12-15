@@ -2,12 +2,42 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+require 'includes/db.php';
 require 'includes/auth.php';
 
 if (!isLoggedIn()) {
     header('Location: login.php');
     exit;
 }
+
+// Функция для получения URL миниатюры YouTube
+function getYoutubeThumbnail($url) {
+    $parsed_url = parse_url($url);
+    if (isset($parsed_url['query'])) {
+        parse_str($parsed_url['query'], $query);
+        return 'https://img.youtube.com/vi/' . $query['v'] . '/hqdefault.jpg';
+    } elseif (isset($parsed_url['path'])) {
+        $path_parts = explode('/', trim($parsed_url['path'], '/'));
+        $video_id = end($path_parts);
+        return 'https://img.youtube.com/vi/' . $video_id . '/hqdefault.jpg';
+    }
+    return '';
+}
+
+// Пагинация клипов
+$items_per_page = 10;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $items_per_page;
+
+$stmt = $pdo->prepare("SELECT * FROM clips LIMIT :offset, :items_per_page");
+$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+$stmt->bindParam(':items_per_page', $items_per_page, PDO::PARAM_INT);
+$stmt->execute();
+$clips = $stmt->fetchAll();
+
+$stmt = $pdo->query("SELECT COUNT(*) FROM clips");
+$total_clips = $stmt->fetchColumn();
+$total_pages = ceil($total_clips / $items_per_page);
 ?>
 
 <!DOCTYPE html>
@@ -15,95 +45,48 @@ if (!isLoggedIn()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Музыкальный портал</title>
-    <link rel="stylesheet" href="css/index.css">
+    <title>Популярные клипы</title>
+    <link rel="stylesheet" href="css/album.css">
 </head>
 <body>
 <div class="layout">
     <div class="menu">
         <h1>Популярные клипы</h1>
         <a href="index.php">Главная страница</a>
-        <a href="artist.php">Артисты</a>
         <a href="album.php">Альбомы</a>
+        <a href="artist.php">Артисты</a>
         <?php if (isAdmin()): ?>
-            <a href="admin.php" class="admin-btn">Панель администратора</a>
+            <a href="admin.php">Панель администратора</a>
         <?php else: ?>
-            <a href="profile.php" class="user-btn">Панель пользователя</a>
+            <a href="profile.php">Панель пользователя</a>
         <?php endif; ?>
         <div class="logout">
-            <a href="logout.php" class="btn logout-btn">Выйти из аккаунта</a>
+            <a href="logout.php">Выйти из аккаунта</a>
         </div>
     </div>
 
     <div class="cards-block">
         <div class="cards-container">
-            <div class="card" style="background-image: url('https://img.youtube.com/vi/sfd2xj9xtN0/hqdefault.jpg');">
-            <a href="https://youtu.be/sfd2xj9xtN0" target="_blank">
-            <div class="card-body"></div></a>
-            </div>
-
-            <div class="card" style="background-image: url('https://img.youtube.com/vi/UwxTUXB8peI/hqdefault.jpg');">
-                <a href="https://youtu.be/UwxTUXB8peI" target="_blank">
-                <div class="card-body"></div></a>
-            </div>
-
-            <div class="card" style="background-image: url('https://img.youtube.com/vi/ZOI8ib7k4Ic/hqdefault.jpg');">
-                <a href="https://youtu.be/ZOI8ib7k4Ic" target="_blank">
-                <div class="card-body"></div></a>
-            </div>
-
-            <div class="card" style="background-image: url('https://img.youtube.com/vi/nidQCt_HEsY/hqdefault.jpg');">
-                <a href="https://youtu.be/nidQCt_HEsY" target="_blank">
-                <div class="card-body"></div></a>
-            </div>
-        </div>
-
-        <div class="cards-container">
-            <div class="card" style="background-image: url('https://img.youtube.com/vi/i9AHJkHqkpw/hqdefault.jpg');">
-                <a href="https://youtu.be/i9AHJkHqkpw" target="_blank">
-                <div class="card-body"></div></a>
-            </div>
-
-            <div class="card" style="background-image: url('https://img.youtube.com/vi/Jg3gwyoUrhE/hqdefault.jpg');">
-                <a href="https://youtu.be/Jg3gwyoUrhE" target="_blank">
-                <div class="card-body"></div></a>
-            </div>
-
-            <div class="card" style="background-image: url('https://img.youtube.com/vi/Zki6xPc7hK0/hqdefault.jpg');">
-                <a href="https://youtu.be/Zki6xPc7hK0" target="_blank">
-                <div class="card-body"></div></a>
-            </div>
-
-            <div class="card" style="background-image: url('https://img.youtube.com/vi/wOBnq0Ewz5k/hqdefault.jpg');">
-                <a href="https://youtu.be/wOBnq0Ewz5k" target="_blank">
-                <div class="card-body"></div></a>
-            </div>
-        </div>
-
-        <div class="cards-container">
-            <div class="card" style="background-image: url('https://img.youtube.com/vi/0-7IHOXkiV8/hqdefault.jpg');">
-                <a href="https://youtu.be/0-7IHOXkiV8" target="_blank">
-                <div class="card-body"></div></a>
-            </div>
-
-            <div class="card" style="background-image: url('https://img.youtube.com/vi/RgKAFK5djSk/hqdefault.jpg');">
-                <a href="https://youtu.be/RgKAFK5djSk" target="_blank">
-                <div class="card-body"></div></a>
-            </div>
-
-            <div class="card" style="background-image: url('https://img.youtube.com/vi/n70xejQ4tXs/hqdefault.jpg');">
-                <a href="https://youtu.be/n70xejQ4tXs" target="_blank">
-                <div class="card-body"></div></a>
-            </div>
-
-            <div class="card" style="background-image: url('https://img.youtube.com/vi/UprcpdwuwCg/hqdefault.jpg');">
-                <a href="https://youtu.be/UprcpdwuwCg" target="_blank">
-                <div class="card-body"></div></a>
-            </div>
+            <?php foreach ($clips as $clip): ?>
+                <div class="card" style="background-image: url('<?php echo getYoutubeThumbnail($clip['video_url']); ?>');">
+                    <a href="<?php echo htmlspecialchars($clip['video_url']); ?>" target="_blank"></a>
+                    <div class="card-body">
+                        <h3><?php echo htmlspecialchars($clip['title']); ?></h3>
+                        <p><?php echo htmlspecialchars($clip['description']); ?></p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 
-    
+    <div class="pagination">
+        <?php if ($page > 1): ?>
+            <a href="clips.php?page=<?php echo $page - 1; ?>">&laquo; Предыдущая</a>
+        <?php endif; ?>
+        <?php if ($page < $total_pages): ?>
+            <a href="clips.php?page=<?php echo $page + 1; ?>">Следующая &raquo;</a>
+        <?php endif; ?>
+    </div>
 </div>
 </body>
 </html>

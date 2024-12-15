@@ -2,12 +2,27 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+require 'includes/db.php';
 require 'includes/auth.php';
 
 if (!isLoggedIn()) {
     header('Location: login.php');
     exit;
 }
+
+$items_per_page = 10;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $items_per_page;
+
+$stmt = $pdo->prepare("SELECT * FROM artists LIMIT :offset, :items_per_page");
+$stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+$stmt->bindParam(':items_per_page', $items_per_page, PDO::PARAM_INT);
+$stmt->execute();
+$artists = $stmt->fetchAll();
+
+$stmt = $pdo->query("SELECT COUNT(*) FROM artists");
+$total_artists = $stmt->fetchColumn();
+$total_pages = ceil($total_artists / $items_per_page);
 ?>
 
 <!DOCTYPE html>
@@ -16,93 +31,46 @@ if (!isLoggedIn()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Музыкальный портал</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/album.css">
 </head>
 <body>
 <div class="layout">
     <div class="menu">
         <h1>Артисты</h1>
         <a href="index.php">Главная страница</a>
-        <a href="clips.php">Популярные клипы</a>
         <a href="album.php">Альбомы</a>
+        <a href="clips.php">Популярные клипы</a>
         <?php if (isAdmin()): ?>
-            <a href="admin.php" class="admin-btn">Панель администратора</a>
+            <a href="admin.php">Панель администратора</a>
         <?php else: ?>
-            <a href="profile.php" class="user-btn">Панель пользователя</a>
+            <a href="profile.php">Панель пользователя</a>
         <?php endif; ?>
         <div class="logout">
-            <a href="logout.php" class="btn logout-btn">Выйти из аккаунта</a>
+            <a href="logout.php">Выйти из аккаунта</a>
         </div>
     </div>
 
-    <div class="cards-block">
-        <div class="cards-container">
-            <div class="card" style="background-image: url('https://images.genius.com/6a1be4cad9ae449d180faaf441db0643.614x614x1.jpg');">
-                <a href="https://genius.com/artists/Tdd" target="_blank">
-                <div class="card-body">
-                    <h3>Три Дня Дождя</h3>
-                </div>
+    <div class="artists-block">
+        <?php foreach ($artists as $artist): ?>
+            <div class="card" style="background-image: url('<?php echo htmlspecialchars($artist['image_url']); ?>');">
+                <a href="<?php echo htmlspecialchars($artist['genius_url']); ?>" target="_blank">
+                    <div class="card-body">
+                        <h3><?php echo htmlspecialchars($artist['name']); ?></h3>
+                        <p><?php echo htmlspecialchars($artist['bio']); ?></p>
+                    </div>
                 </a>
             </div>
-            <div class="card" style="background-image: url('https://images.genius.com/09be92b8cac43055bf20c3ac5c910d88.1000x1000x1.jpg');">
-                <a href="https://genius.com/artists/Klava-coca" target="_blank">
-                <div class="card-body">
-                    <h3>Клава Кока</h3>
-                </div>
-                </a>
-            </div>
-            <div class="card" style="background-image: url('https://images.genius.com/20ca7e30cbeee62546bcdee319368f4d.800x800x1.jpg');">
-                <a href="https://genius.com/artists/Egor-kreed" target="_blank">
-                <div class="card-body">
-                    <h3>Егор Крид</h3>
-                </div>
-                </a>
-            </div>
-            <div class="card" style="background-image: url('https://images.genius.com/b9d653e5c694c2f5d76fa6caf006f2a9.1000x1000x1.jpg');">
-                <a href="https://genius.com/artists/Anna-asti" target="_blank">
-                <div class="card-body">
-                    <h3>Анна Асти</h3>
-                </div>
-                </a>
-            </div>
-        </div>
-
-        <div class="cards-container">
-            <div class="card" style="background-image: url('https://images.genius.com/dfe1652d83589d9d7b39b996c1dfc2ea.1000x1000x1.jpg');">
-                <a href="https://genius.com/artists/Geegun" target="_blank">
-                <div class="card-body">
-                    <h3>Джиган</h3>
-                </div>
-                </a>
-            </div>
-
-            <div class="card" style="background-image: url('https://images.genius.com/9c0f540ae52f21de3dfaa40453dba836.750x750x1.jpg');">
-                <a href="https://genius.com/artists/Timati" target="_blank">
-                <div class="card-body">
-                    <h3>Тимати</h3>
-                </div>
-                </a>
-            </div>
-
-            <div class="card" style="background-image: url('https://images.genius.com/d4907184d0bec2baf1009d0b615b313c.1000x1000x1.jpg');">
-                <a href="https://genius.com/artists/Shaman" target="_blank">
-                <div class="card-body">
-                    <h3>Шаман</h3>
-                </div>
-                </a>
-            </div>
-
-            <div class="card" style="background-image: url('https://images.genius.com/988914a6e5bc0a28a9f814e97470e2a0.612x612x1.jpg');">
-                <a href="https://genius.com/artists/Macan" target="_blank">
-                <div class="card-body">
-                    <h3>Macan</h3>
-                </div>
-                </a>
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
 
-    
+    <div class="pagination">
+        <?php if ($page > 1): ?>
+            <a href="artist.php?page=<?php echo $page - 1; ?>">&laquo; Предыдущая</a>
+        <?php endif; ?>
+        <?php if ($page < $total_pages): ?>
+            <a href="artist.php?page=<?php echo $page + 1; ?>">Следующая &raquo;</a>
+        <?php endif; ?>
+    </div>
 </div>
 </body>
 </html>

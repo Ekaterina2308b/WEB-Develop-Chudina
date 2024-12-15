@@ -130,3 +130,13 @@ h1 {
     text-align: center;
     border: 1px solid #f9a826;
 }
+
+.menu_user { 
+    position: relative; 
+    display: flex; 
+    flex-direction: column; 
+    background: #1e1e1e; 
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+}

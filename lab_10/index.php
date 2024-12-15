@@ -3,11 +3,26 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require 'includes/auth.php';
+require 'includes/db.php';
 
 if (!isLoggedIn()) {
     header('Location: login.php');
     exit;
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['news_text'])) {
+    $news_text = $_POST['news_text'];
+
+    $stmt = $pdo->prepare("INSERT INTO news (text, created_at) VALUES (:text, NOW())");
+    $stmt->execute(['text' => $news_text]);
+
+    header('Location: index.php');
+    exit();
+}
+
+$stmt = $pdo->prepare("SELECT * FROM news ORDER BY created_at DESC");
+$stmt->execute();
+$news = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -34,37 +49,27 @@ if (!isLoggedIn()) {
             <a href="logout.php">Выйти из аккаунта</a>
         </div>
     </div>
-    
 
-    <div class="cards-block">
-        <div class="cards-container">
-            <div class="card" style="background-image: url('img/tdd.jpg');">
-                <div class="card-body">
-                    <h3>Три Дня Дождя</h3>
+    <div class="news-section">
+        <h1>Что у вас нового?</h1>
+        <?php if (isLoggedIn()): ?>
+            <form action="index.php" method="post" class="news-form">
+                <textarea name="news_text" rows="4" required placeholder="Что у вас нового?"></textarea><br>
+                <button type="submit">Опубликовать</button>
+            </form>
+        <?php else: ?>
+            <p>Для публикации новостей необходимо <a href="login.php">войти в аккаунт</a>.</p>
+        <?php endif; ?>
+
+        <div class="news-feed">
+            <?php foreach ($news as $item): ?>
+                <div class="news-item">
+                    <p><?php echo htmlspecialchars($item['text']); ?></p>
+                    <small>Опубликовано: <?php echo htmlspecialchars($item['created_at']); ?></small>
                 </div>
-            </div>
-            <div class="card" style="background-image: url('img/klava.jpg');">
-                <div class="card-body">
-                    <h3>Клава Кока</h3>
-                </div>
-            </div>
-            <div class="card" style="background-image: url('img/egorkreed.jpg');">
-                <div class="card-body">
-                    <h3>Егор Крид</h3>
-                </div>
-            </div>
-            <div class="card" style="background-image: url('img/annaasti.jpg');">
-                <div class="card-body">
-                    <h3>Анна Асти</h3>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
-
-        <h1>Добро пожаловать на музыкальный портал!</h1>
-    <div style='text-align: center; margin-top: 20px;'>
-        <img src='gif/minion.gif' alt='Музыкальная анимация' />
     </div>
-</div>      
-
+</div>
 </body>
 </html>
